@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Dark premium designer wallpaper jaisa */
+  background-size: 300% 300%;
+  animation: premiumDark 18s ease infinite; /* Thoda smooth animation */
+  min-height: 100vh;
+  color: #e0d4ff; /* Light purple-gold text colour for dark bg */
+}
+
+@keyframes premiumDark {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h1, h2, h3 {
+  color: #ffd700; /* Gold colour headings */
+}
+
+p, label, li {
+  color: #e0d4ff; /* Light text */
+}
+
+.navbar {
+  background: linear-gradient(to right, #1a1a2e, #0f0c29) !important;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.navbar-brand {
+  color: #ffd700 !important;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: #e0d4ff !important;
+}
+
+.nav-link:hover {
+  color: #ffd700 !important;
+}
+
+.btn-primary {
+  background-color: #6c5ce7;
+  border-color: #6c5ce7;
+}
+
+.btn-primary:hover {
+  background-color: #a29bfe;
+  border-color: #a29bfe;
+}
+
+.image-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4); /* Purple glow hover */
+}
+
