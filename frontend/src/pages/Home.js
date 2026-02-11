@@ -3,23 +3,54 @@ import Slider from 'react-slick';
 import { Container, Row, Col, Card, Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-// Slideshow images (multiple overlapping, center big)
+const featuredItems = [
+  {
+    id: 'featured-1',
+    img: '/images/bag1.jpg',
+    details: {
+      variety: 'Travel',           
+      type: 'Leather',             
+      size: 'Medium',              
+      pockets: 5,                  
+      price: 1500                  
+    }
+  },
+  {
+    id: 'featured-2',
+    img: '/images/sofa1.jpg',
+    details: {
+      variety: 'Living Room',
+      type: 'Fabric',
+      size: '6 Seater',
+      price: 20000
+    }
+  },
+  {
+    id: 'featured-3',
+    img: '/images/car1.jpg',
+    details: {
+      type: 'Leather',
+      size: 'Compact',
+      price: 18000
+    }
+  },
+  {
+    id: 'featured-4',
+    img: '/images/bike1.jpg',
+    details: {
+      type: 'Leather',
+      size: 'Standard',
+      price: 1500
+    }
+  }
+];
+
 const slideshowImages = [
   '/images/slide1.jpg',
   '/images/slide2.jpg',
   '/images/slide3.jpg',
   '/images/slide4.jpg',
   '/images/slide5.jpg',
-  '/images/slide6.jpg',
-  '/images/slide7.jpg',
-  // aur images chahiye to yahan add kar dena
-];
-
-const featuredItems = [
-  { img: '/images/bag1.jpg', details: { variety: 'Travel', type: 'Leather', size: 'Medium', pockets: 5, price: 1500 } },
-  { img: '/images/sofa1.jpg', details: { variety: 'Living Room', type: 'Fabric', size: '3 Seater', pockets: 'N/A', price: 20000 } },
-  { img: '/images/car1.jpg', details: { variety: 'Sedan', type: 'Petrol', size: 'Compact', pockets: 'N/A', price: 1000000 } },
-  { img: '/images/bike1.jpg', details: { variety: 'Sports', type: 'Electric', size: 'Standard', pockets: 'N/A', price: 150000 } },
 ];
 
 const Home = () => {
@@ -31,20 +62,14 @@ const Home = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5, // Bhut saari visible
+    slidesToShow: 5,
     slidesToScroll: 1,
-    centerMode: true, // Center wali big
+    centerMode: true,
     centerPadding: '0px',
     autoplay: true,
     autoplaySpeed: 3000,
     responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          centerPadding: '0px',
-        }
-      }
+      { breakpoint: 768, settings: { slidesToShow: 3, centerPadding: '0px' } }
     ]
   };
 
@@ -84,15 +109,26 @@ const Home = () => {
         ))}
       </Slider>
 
-      {/* 4 Featured Images */}
+      {/* Featured Images with View Details Button */}
       <Container className="my-5">
         <Row>
-          {featuredItems.map((item, idx) => (
-            <Col md={3} key={idx} className="mb-4">
-              <Card className="image-card h-100">
-                <Card.Img variant="top" src={item.img} style={{ height: '220px', objectFit: 'contain' }} />
-                <Card.Body className="text-center">
-                  <Button variant="primary" onClick={() => handleShowDetails(item)}>View Details</Button>
+          {featuredItems.map((item) => (
+            <Col md={3} key={item.id} className="mb-4">
+              <Card className="image-card h-100 text-center" style={{ overflow: 'hidden' }}>
+                <Card.Img 
+                  variant="top" 
+                  src={item.img} 
+                  style={{ 
+                    height: '240px', 
+                    objectFit: 'cover', 
+                    padding: 0, 
+                    margin: 0 
+                  }} 
+                />
+                <Card.Body style={{ padding: '12px' }}>
+                  <Button variant="primary" onClick={() => handleShowDetails(item)}>
+                    View Details
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -113,11 +149,11 @@ const Home = () => {
               </Col>
               <Col md={6}>
                 <ul>
-                  <li>Variety: {selectedItem.details.variety}</li>
-                  <li>Type: {selectedItem.details.type}</li>
-                  <li>Size: {selectedItem.details.size}</li>
-                  <li>Pockets: {selectedItem.details.pockets}</li>
-                  <li>Price: ₹{selectedItem.details.price}</li>
+                  {Object.entries(selectedItem.details).map(([key, value]) => (
+                    <li key={key}>
+                      <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value}
+                    </li>
+                  ))}
                 </ul>
               </Col>
             </Row>
@@ -125,9 +161,9 @@ const Home = () => {
         </Modal.Body>
       </Modal>
 
-      {/* Enquiry Section - wapas add kiya */}
+      {/* Enquiry Section - bilkul pehle jaisa add kiya */}
       <Container className="my-5 py-5" style={{ background: 'rgba(30, 30, 46, 0.6)', borderRadius: '15px' }}>
-        <h2 className="text-center mb-4">Enquiry Form</h2>
+        <h2 className="text-center mb-4" style={{ color: '#ffd700' }}>Enquiry Form</h2>
         <Form onSubmit={submitEnquiry}>
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
@@ -150,7 +186,7 @@ const Home = () => {
             <Form.Control as="textarea" rows={3} name="enquiry" value={enquiry.enquiry} onChange={handleEnquiryChange} required />
           </Form.Group>
           <div className="text-center">
-            <Button variant="primary" type="submit" size="lg">Submit Enquiry</Button>
+            <Button variant="primary" type="submit" size="lg">Submit</Button>
           </div>
         </Form>
       </Container>

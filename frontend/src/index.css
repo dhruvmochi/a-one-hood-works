@@ -18,8 +18,12 @@ h1, h2, h3 {
   color: #ffd700; /* Gold colour headings */
 }
 
-p, label, li {
-  color: #e0d4ff; /* Light text */
+p, label {
+  color: #e0d4ff;
+}
+
+li {
+  color: #0a0a0a;
 }
 
 .navbar {
